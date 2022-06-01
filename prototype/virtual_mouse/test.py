@@ -1,7 +1,7 @@
 import pyautogui  # 마우스 조작
 import cv2
 import mediapipe as mp  # 손 키포인트 디텍션
-from prototype.virtual_mouse.hand_gesture import GestureRecognition
+from hand_gesture import GestureRecognition
 
 sc_w, sc_h = pyautogui.size()  # 모니터 해상도: 가로, 세로
 cam_w, cam_h = 640, 480  # 캠에서 읽어올 영상의 크기
