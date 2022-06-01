@@ -66,10 +66,7 @@ if test_onnx:  # onnx 로
     def preprocessing(kpts):
         """keypoints 전처리 - 손목지점을 원점으로 지정, 키포인트 x, y 좌표를 0~1로 정규화"""
         kpts_ = deepcopy(kpts)
-        origin_point = kpts_[0]
-        for i in range(21):
-            kpts_[i] -= origin_point
-        kpts_ /= kpts_.max(axis=0)
+        kpts_ = (kpts_ - kpts_.min(axis=0)) / (kpts_.max(axis=0) - kpts_.min(axis=0))
         return kpts_.flatten()
 ######################################################################드
 
