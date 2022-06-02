@@ -1,20 +1,21 @@
 """
-SECONDS_TO_RECORD 설정하세요
-FPS 설정하세요
-ANNOTATOR_NAME는 세 글자 이니셜이어야 합니다
-RESIZE_WIDTH_HEIGHT는 세로가 224가 되게 16:9로 맞춘 값입니다
-cv7ahand/training/rgb 폴더에 이미지를 저장합니다
+SECONDS_TO_RECORD를 설정하세요
+FPS를 설정하세요
+ANNOTATOR_NAME은 세 글자 이니셜이어야 합니다
+cv7ahand/training/rgb 폴더에 이미지들을 저장합니다
 """
 
 import cv2
 import time
 from datetime import datetime
 import os
+from copy import deepcopy
 
-SECONDS_TO_RECORD = 5
+SECONDS_TO_RECORD = 10
 FPS = 2
 ANNOTATOR_NAME = "KJH"
-RESIZE_WIDTH_HEIGHT = (434, 244)
+RESIZE_WIDTH_HEIGHT = (568, 336) # 224x224의 1.5배, 16:9
+PATCH_X_MIN, PATCH_X_MAX, PATCH_Y_MIN, PATCH_Y_MAX = 52, 276, 112, 336 # 중앙: 172, 396, 112, 336
 
 if not os.path.exists("cv7ahand"):
     os.mkdir("cv7ahand")
@@ -35,6 +36,10 @@ while True:
     retval, frame = cap.read()
     frame = cv2.resize(frame, RESIZE_WIDTH_HEIGHT)
     # writer.write(frame) # video
+    frame_ = deepcopy(frame)
+    patch = frame_[PATCH_Y_MIN:PATCH_Y_MAX, PATCH_X_MIN:PATCH_X_MAX]
+    cv2.rectangle(frame, (PATCH_X_MIN, PATCH_Y_MIN), (PATCH_X_MAX, PATCH_Y_MAX-2), (255,255,255), 3)
+    cv2.putText(frame, 'PLACE YOUR HAND INSIDE THE BOX', (PATCH_X_MIN-1, PATCH_Y_MIN-9), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255,255,255), 1)
     cv2.imshow("frame", frame)
 
     if time.time() - fps_reset_time >= 1 / FPS:
@@ -44,7 +49,7 @@ while True:
         img_time = now.strftime("%y%m%d%H%M%S%f")
         img_time = img_time[:14]
         
-        cv2.imwrite(os.path.join(img_save_path, f"{ANNOTATOR_NAME}_{img_time}.jpg"), frame)
+        cv2.imwrite(os.path.join(img_save_path, f"{ANNOTATOR_NAME}_{img_time}.jpg"), patch)
 
     if time.time() - start_recording_time >= SECONDS_TO_RECORD:
         break

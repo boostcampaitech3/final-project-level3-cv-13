@@ -8,3 +8,6 @@ prototype/dataset_generator/cv7ahand/training/rgb/KJH_22060213504439.jpg
 prototype/dataset_generator/cv7ahand/training/rgb/KJH_22060213504492.jpg
 prototype/dataset_generator/cv7ahand/training/rgb/KJH_22060213504545.jpg
 prototype/dataset_generator/cv7ahand/training/rgb/KJH_22060213504595.jpg
+prototype/dataset_generator/freihand_val.json
+prototype/.DS_Store
+prototype/dataset_generator/cv7ahand/training/.DS_Store
