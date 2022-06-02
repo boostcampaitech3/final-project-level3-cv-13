@@ -1,7 +1,7 @@
 """
 SECONDS_TO_RECORD를 설정하세요
 FPS를 설정하세요
-ANNOTATOR_NAME은 세 글자 이니셜이어야 합니다
+ANNOTATOR_ID는 캠퍼 아이디 마지막 숫자 두 개 입니다
 cv7ahand/training/rgb 폴더에 이미지들을 저장합니다
 """
 
@@ -11,10 +11,10 @@ from datetime import datetime
 import os
 from copy import deepcopy
 
-SECONDS_TO_RECORD = 10
-FPS = 2
-ANNOTATOR_NAME = "KJH"
-RESIZE_WIDTH_HEIGHT = (568, 336) # 224x224의 1.5배, 16:9
+SECONDS_TO_RECORD = 60
+FPS = 30
+ANNOTATOR_ID = "49" # 김재훈_T3049, 송진우_T3114, 이종민_T3165, 조정빈_T3209, 천영호_T3216
+RESIZE_WIDTH_HEIGHT = (568, 336) #  16:9, 224x224의 1.5배
 PATCH_X_MIN, PATCH_X_MAX, PATCH_Y_MIN, PATCH_Y_MAX = 52, 276, 112, 336 # 중앙: 172, 396, 112, 336
 
 if not os.path.exists("cv7ahand"):
@@ -49,7 +49,7 @@ while True:
         img_time = now.strftime("%y%m%d%H%M%S%f")
         img_time = img_time[:14]
         
-        cv2.imwrite(os.path.join(img_save_path, f"{ANNOTATOR_NAME}_{img_time}.jpg"), patch)
+        cv2.imwrite(os.path.join(img_save_path, f"{ANNOTATOR_ID}{img_time}.jpg"), patch)
 
     if time.time() - start_recording_time >= SECONDS_TO_RECORD:
         break
