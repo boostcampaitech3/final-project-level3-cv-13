@@ -9,8 +9,8 @@ IDX2GESTURE = {
     0: 'mouse_up',
     1: 'mouse_down',
     2: 'right_click',
-    3: 'mouse_up',
-    4: 'mouse_up',
+    3: None,
+    4: None,
 }
 
 
@@ -50,7 +50,7 @@ class Cursor:
 
         return 'move'
 
-    def control(self, pos: Tuple[int, int], gesture: str):
+    def control(self, pos: Tuple[int, int], gesture: Optional[str]):
         """마우스 조작"""
         if gesture == 'move' or gesture == 'drag':
             pyautogui.moveTo(pos, _pause=False)
@@ -60,6 +60,8 @@ class Cursor:
             pyautogui.mouseUp(_pause=False)
         elif gesture == 'right_click':
             pyautogui.rightClick(_pause=False)
+        else:  # None
+            pass
 
     def __call__(self, kpts: List[float], gesture_idx: Optional[int]):
         if gesture_idx is not None:
