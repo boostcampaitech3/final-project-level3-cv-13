@@ -17,7 +17,7 @@ IDX2GESTURE = {
 class Cursor:
     """커서 조작"""
     def __init__(self, ctr_area_ratio: float):
-        self.ctr_area_bound = (1. - ctr_area_ratio) / 2.
+        self.ctr_area_ratio = ctr_area_ratio
         self.scr_wh = pyautogui.size()
         self.prev_gesture = None
         self.t_down = None
@@ -25,7 +25,7 @@ class Cursor:
     def get_cursor_pos(self, kpts: List[float]) -> Tuple[float, float]:
         """커서 좌표 계산: 검지 끝 키포인트 좌표 계산"""
         idx_t = kpts[16:18]
-        bound = self.ctr_area_bound
+        bound = (1. - self.ctr_area_ratio) / 2.
         cursor_pos_x = (np.clip(1. - idx_t[0], bound, 1. - bound) - bound) / (1. - bound * 2)
         cursor_pos_y = np.clip(idx_t[1], 0., 1. - bound * 2.) / (1. - bound * 2)
 
