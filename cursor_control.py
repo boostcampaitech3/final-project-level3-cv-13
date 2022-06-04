@@ -22,14 +22,14 @@ class Cursor:
         self.prev_gesture = None
         self.t_down = None
 
-    def get_cursor_pos(self, kpts: List[float]) -> Tuple[float, float]:
+    def get_cursor_pos(self, kpts: List[float]) -> Tuple[Tuple[float, float], List]:
         """커서 좌표 계산: 검지 끝 키포인트 좌표 계산"""
         idx_t = kpts[16:18]
         bound = (1. - self.ctr_area_ratio) / 2.
         cursor_pos_x = (np.clip(1. - idx_t[0], bound, 1. - bound) - bound) / (1. - bound * 2)
         cursor_pos_y = np.clip(idx_t[1], 0., 1. - bound * 2.) / (1. - bound * 2)
 
-        return cursor_pos_x, cursor_pos_y
+        return (cursor_pos_x, cursor_pos_y), idx_t
 
     def get_gesture(self, gesture: str) -> Optional[str]:
         """이전 동작을 고려하여 수행할 동작 반환"""
@@ -63,13 +63,14 @@ class Cursor:
 
     def __call__(self, kpts: List[float], gesture_idx: Optional[int]):
         if gesture_idx is not None:
-            cursor_pos = self.get_cursor_pos(kpts)
+            cursor_pos, idx_pos = self.get_cursor_pos(kpts)
             cursor_pos_pixel = int(cursor_pos[0] * self.scr_wh[0]), int(cursor_pos[1] * self.scr_wh[1])
 
             gesture = self.get_gesture(IDX2GESTURE[gesture_idx])
-            print(gesture)
             self.control(cursor_pos_pixel, gesture)
             self.prev_gesture = gesture
+
+            return idx_pos if gesture else None
 
 
 
