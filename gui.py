@@ -32,14 +32,14 @@ form_class = uic.loadUiType("gui_test.ui")[0]
 class CursorThread(QThread):
     change_pixmap = pyqtSignal(QImage)
 
-    def __init__(self, p, time_per_step_label, img_label, delay=.1, ctr_ratio=.8):
+    # def __init__(self, p, time_per_step_label, img_label, delay=.1, ctr_ratio=.8):
+    def __init__(self, p, time_per_step_label, img_label):
         super().__init__(p)
-        self.delay = delay
+        self.delay = None
+        self.use_left_hand = None
         self.time_per_step_label = time_per_step_label
         self.img_label = img_label
         self.change_pixmap.connect(self.update_img)
-
-        self.right_hand = True
 
         self.W, self.H = 640, 480
         self.show_W, self.show_H = 320, 240
@@ -56,7 +56,7 @@ class CursorThread(QThread):
         # :+:+:+: 손동작 분류 모델 설정
         self.gesture_recognition = GestureRecognition(args.gesture_model_path)
         # :+:+:+: 커서 조작 설정
-        self.cursor = Cursor(ctr_ratio)
+        self.cursor = Cursor(None)
 
     def run(self):
         capture = cv2.VideoCapture(0)
@@ -78,6 +78,8 @@ class CursorThread(QThread):
             r, b = l + self.__box_size, t + self.__box_size
 
             patch = np.ascontiguousarray(frame[t: b, l: r])
+            if self.use_left_hand:
+                patch = cv2.flip(patch, 1)
             patch.flags.writeable = False
 
             kpts = self.kpts_model(patch)
@@ -116,6 +118,8 @@ class CursorThread(QThread):
     def draw_idx_point(self, frame, patch_lt, idx_pos):
         l, t = patch_lt
         if idx_pos:
+            if self.use_left_hand:
+                idx_pos[0] = 1. - idx_pos[0]
             idx_x = int(idx_pos[0] * self.__box_size + l)
             idx_y = int(idx_pos[1] * self.__box_size + t)
             frame = cv2.circle(frame, (idx_x, idx_y), 5, (0, 255, 0), -1)
@@ -147,7 +151,9 @@ class WindowClass(QMainWindow, form_class):
         super().__init__()
         self.setupUi(self)
 
-        self.th = CursorThread(self, self.time_per_step, self.cam_img, self.delay.value(), self.ctr_area_ratio.value())
+        # self.th = CursorThread(self, self.time_per_step, self.cam_img, self.delay.value(), self.ctr_area_ratio.value())
+        self.th = CursorThread(self, self.time_per_step, self.cam_img)
+        self.save_btn()
         self.th.start()
 
         self.save.clicked.connect(self.save_btn)
@@ -162,9 +168,11 @@ class WindowClass(QMainWindow, form_class):
     def save_btn(self):
         delay = self.delay.value()
         ctr_ratio = self.ctr_area_ratio.value()
+        use_left_hand = True if self.left_hand.isChecked() else False
 
         self.th.delay = delay
         self.th.cursor_ctr_ratio = ctr_ratio
+        self.th.use_left_hand = use_left_hand
 
     def set_infer_area(self, event):
         self.th.box_center = int(event.x()), int(event.y())
