@@ -46,8 +46,6 @@ args = parser.parse_args()
 
 def main(args):
     # :+:+:+: 인퍼런스 영역, 커서 조작 영역 설정
-    scr_w, scr_h = pyautogui.size()  # 화면 해상도
-
     if len(args.cam_wh) == 2:
         cam_w, cam_h = args.cam_wh  # 캠 소스 크기
     else:
@@ -83,7 +81,7 @@ def main(args):
     gesture_recognition = GestureRecognition(args.gesture_model_path)
 
     # :+:+:+: 커서 조작 설정
-    cursor = Cursor(args.ctr_area_ratio, (scr_w, scr_h))
+    cursor = Cursor(args.ctr_area_ratio)
 
     # :+:+:+: 메인 코드
     if capture.isOpened():

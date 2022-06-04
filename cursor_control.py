@@ -16,9 +16,9 @@ IDX2GESTURE = {
 
 class Cursor:
     """커서 조작"""
-    def __init__(self, ctr_area_ratio: float, scr_wh: Tuple[int, int]):
+    def __init__(self, ctr_area_ratio: float):
         self.ctr_area_bound = (1. - ctr_area_ratio) / 2.
-        self.scr_wh = scr_wh
+        self.scr_wh = pyautogui.size()
         self.prev_gesture = None
         self.t_down = None
 
