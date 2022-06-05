@@ -46,7 +46,7 @@ class CursorThread(QThread):
     """
     CAM_W, CAM_H = 640, 480  # 웹캠 소스 크기
     SHOW_W, SHOW_H = 320, 240  # 위젯 이미지 라벨 크기
-    CAM_LABEL_RATIO = CAM_W / SHOW_H
+    CAM_LABEL_RATIO = CAM_W / SHOW_W
     change_pixmap = pyqtSignal(QImage)
 
     def __init__(self, p: QObject, time_per_step_label: QLabel, img_label: QLabel):
@@ -178,6 +178,8 @@ class CursorThread(QThread):
     @box_center.setter
     def box_center(self, value: Tuple[int, int]):
         """인퍼런스 영역이 이미지를 벗어나지 않도록 영역 중심 설정"""
+        print(self.__box_center)
+        print(value)
         value = [int(v * self.CAM_LABEL_RATIO) for v in value]
         value[0] = self.CAM_W - min(max(value[0], self.__box_size//2), self.CAM_W - self.__box_size//2)
         value[1] = min(max(value[1], self.__box_size//2), self.CAM_H - self.__box_size//2)
