@@ -59,7 +59,7 @@ class CursorThread(QThread):
         self.change_pixmap.connect(self.update_img_label)
 
         self.__box_center = (200, 320)
-        self.__box_size = 244
+        self.__box_size = 224
 
         # :+:+:+: 인퍼런스 모델 설정
         if args.kpts_model_path is not None:
@@ -143,7 +143,7 @@ class CursorThread(QThread):
 
         # 커서 조작 영역 표시
         ctr_box_size = int(self.__box_size * self.cursor.ctr_area_ratio)
-        l_ctr, t_ctr = self.__box_center[0] - (ctr_box_size // 2), t
+        l_ctr, t_ctr = self.__box_center[0] - (ctr_box_size // 2), t + int(self.__box_size * .05)
         r_ctr, b_ctr = l_ctr + ctr_box_size, t_ctr + ctr_box_size
         frame = cv2.rectangle(frame, (l_ctr, t_ctr), (r_ctr, b_ctr), (255, 0, 128), 2)
 

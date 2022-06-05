@@ -27,7 +27,7 @@ class Cursor:
         idx_t = kpts[16:18]
         bound = (1. - self.ctr_area_ratio) / 2.
         cursor_pos_x = (np.clip(1. - idx_t[0], bound, 1. - bound) - bound) / (1. - bound * 2)
-        cursor_pos_y = np.clip(idx_t[1], 0., 1. - bound * 2.) / (1. - bound * 2)
+        cursor_pos_y = (np.clip(idx_t[1], 0.05, 1.05 - bound * 2.) - 0.05) / (1. - bound * 2)
 
         return (cursor_pos_x, cursor_pos_y), idx_t
 
