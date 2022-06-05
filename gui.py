@@ -103,6 +103,8 @@ class CursorThread(QThread):
             kpts = self.kpts_model(patch)
             if kpts:
                 hand_pose = self.gesture_recognition(kpts)
+                if self.use_left_hand:
+                    kpts = [x if i % 2 == 1 else 1.-x for i, x in enumerate(kpts)]
                 idx_pos = self.cursor(kpts, hand_pose)
                 self.draw_idx_point(frame, (l, t), idx_pos)
 
@@ -163,8 +165,8 @@ class CursorThread(QThread):
         """
         l, t = patch_lt
         if idx_pos:
-            if self.use_left_hand:
-                idx_pos[0] = 1. - idx_pos[0]
+            # if self.use_left_hand:
+                # idx_pos[0] = 1. - idx_pos[0]
             idx_x = int(idx_pos[0] * self.__box_size + l)
             idx_y = int(idx_pos[1] * self.__box_size + t)
             frame = cv2.circle(frame, (idx_x, idx_y), 5, (0, 255, 0), -1)
@@ -212,6 +214,8 @@ class WindowClass(QMainWindow, form_class):
         self.text_delay.leaveEvent = self.help_reset
         self.text_hand.enterEvent = self.help_hand
         self.text_hand.leaveEvent = self.help_reset
+        self.text_ctr_area.enterEvent = self.help_ctr_area
+        self.text_ctr_area.leaveEvent = self.help_reset
         self.help_bar.showMessage('')
 
     def save_btn(self):
@@ -232,6 +236,9 @@ class WindowClass(QMainWindow, form_class):
 
     def help_hand(self, _):
         self.help_bar.showMessage('왼손 조작 / 오른손 조작 선택')
+
+    def help_ctr_area(self, _):
+        self.help_bar.showMessage('인퍼런스 영역 대비 조작 영역의 비율')
 
     def help_reset(self, _):
         self.help_bar.showMessage('')
