@@ -1,6 +1,9 @@
 from typing import List
-import mediapipe as mp
 import numpy as np
+import mediapipe as mp
+import onnxruntime
+
+from prototype.functions import preprocessing, keypoints_from_heatmaps
 
 
 class MediapipeHandModule:
@@ -28,5 +31,26 @@ class MediapipeHandModule:
 
 
 class OnnxHandModule:
+    CENTER: np.ndarray = np.array([112., 112.], dtype=np.float32)[np.newaxis]
+    # SCALE: np.ndarray = np.array([0.896, 0.896], dtype=np.float32)[np.newaxis]
+    SCALE: np.ndarray = np.array([1., 1.], dtype=np.float32)[np.newaxis]
+
     def __init__(self, model_path: str):
-        raise NotImplementedError
+        self.hands = onnxruntime.InferenceSession(model_path)
+
+    def __call__(self, img: np.ndarray) -> List[float]:
+        img_prep = preprocessing(img)
+        ort_inputs = {self.hands.get_inputs()[0].name: img_prep}
+        ort_outs = self.hands.run(None, ort_inputs)
+        kpts_with_score = keypoints_from_heatmaps(heatmaps=ort_outs[0], center=self.CENTER, scale=self.SCALE)
+
+        mean_score = kpts_with_score[1].mean()
+        kpts = kpts_with_score[0]
+        kpts_norm = kpts / np.array(img.shape[1::-1])
+        return kpts_norm.flatten().tolist() if mean_score >= .5 else None
+
+
+if __name__ == '__main__':
+    fake_input = np.random.normal(size=(224, 224, 3))
+    onnx_hands = OnnxHandModule('m3_cv7a_224x224_220605.onnx')
+    print(onnx_hands(fake_input))
