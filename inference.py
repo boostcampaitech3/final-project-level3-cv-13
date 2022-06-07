@@ -33,7 +33,7 @@ class MediapipeHandModule:
 class OnnxHandModule:
     CENTER: np.ndarray = np.array([112., 112.], dtype=np.float32)[np.newaxis]
     # SCALE: np.ndarray = np.array([0.896, 0.896], dtype=np.float32)[np.newaxis]
-    SCALE: np.ndarray = np.array([1., 1.], dtype=np.float32)[np.newaxis]
+    SCALE: np.ndarray = np.array([1.12, 1.12], dtype=np.float32)[np.newaxis]
 
     def __init__(self, model_path: str):
         self.hands = onnxruntime.InferenceSession(model_path)
