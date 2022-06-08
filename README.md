@@ -52,6 +52,13 @@ python3 main.py
 |<img src='imgs/gesture_1.jpg'>| <img src='imgs/gesture_2.jpg'> | <img src='imgs/gesture_3.jpg'> | <img src='imgs/gesture_4.jpg'> |
 
 *  드래그: 클릭 상태 1초간 유지
+
+## 모델
+
+### 핸드 키포인트 디텍션 모델
+
+### 제스쳐 분류 모델
+
 ## 팀 CV7Λ
 
 | T3049 | T3114 | T3165 | T3209 | T3216 |
