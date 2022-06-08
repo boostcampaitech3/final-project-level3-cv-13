@@ -1,10 +1,7 @@
 import numpy as np
-import torch
 import cv2
 import warnings
 
-
-from torchvision.transforms import functional as F
 
 def rotate_point(pt, angle_rad):
     """Rotate a point by an angle.
@@ -23,7 +20,6 @@ def rotate_point(pt, angle_rad):
     rotated_pt = [new_x, new_y]
 
     return rotated_pt
-
 
 
 def _get_3rd_point(a, b):
@@ -46,6 +42,7 @@ def _get_3rd_point(a, b):
     third_pt = b + np.array([-direction[1], direction[0]], dtype=np.float32)
 
     return third_pt
+
 
 def get_affine_transform(center,
                          scale,
@@ -104,25 +101,28 @@ def get_affine_transform(center,
 
     return trans
 
-def _to_tensor(x):
-        return torch.from_numpy(x.astype('float32')).permute(2, 0, 1).div_(255.0)
-
-def to_numpy(tensor):
-    return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
-
 
 c = np.array([112., 112.], dtype=np.float32)
-s = np.array([0.896, 0.896], dtype=np.float32)
+s = np.array([1.12, 1.12], dtype=np.float32)
 image_size = np.array([224, 224])
 trans = get_affine_transform(center=c, scale=s, rot=0., output_size=image_size)
 
-def preprocessing(img):
-    img = cv2.warpAffine(img,trans, (224, 224),flags=cv2.INTER_LINEAR)
-    img = _to_tensor(img)
-    img = F.normalize(img, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], inplace=True)
-    img = torch.unsqueeze(img, 0)
-    img = to_numpy(img)
+
+def normalize_numpy(img):
+    img = img.astype('float32')
+    img = img.transpose(2,0,1) / 255.0
+    img[0,:,:] = (img[0,:,:] - 0.485) / 0.229
+    img[1,:,:] = (img[1,:,:] - 0.456) / 0.224
+    img[2,:,:] = (img[2,:,:] - 0.406) / 0.225
     return img
+
+
+def preprocessing(img):
+    img = cv2.warpAffine(img, trans, (224, 224),flags=cv2.INTER_LINEAR)
+    img = normalize_numpy(img)
+    img = np.expand_dims(img, axis=0)
+    return img
+
 
 def transform_preds(coords, center, scale, output_size, use_udp=False):
     """Get final keypoint predictions from heatmaps and apply scaling and
