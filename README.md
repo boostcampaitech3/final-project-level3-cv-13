@@ -1,6 +1,3 @@
-# final-project-level3-cv-13
-final-project-level3-cv-13 created by GitHub Classroom
-=======
 # 웹캠을 통한 가상 마우스
 
 <p align="center">
