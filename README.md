@@ -22,7 +22,7 @@
 
 ## 사용
 
-### install
+### 설치
 ```shell
 # 레포지터리 클론
 git clone https://github.com/boostcampaitech3/final-project-level3-cv-13.git
@@ -46,13 +46,13 @@ python3 main.py
     <img src="imgs/gui.png">
 </p>
 
-### gesture
+### 손동작 종류
 |이동| 클릭                             | 우클릭                            | None                           |
 |----|--------------------------------|--------------------------------|--------------------------------|
 |<img src='imgs/gesture_1.jpg'>| <img src='imgs/gesture_2.jpg'> | <img src='imgs/gesture_3.jpg'> | <img src='imgs/gesture_4.jpg'> |
 
 *  드래그: 클릭 상태 1초간 유지
-## 팀 <V\>Λ
+## 팀 CV7Λ
 
 | T3049 | T3114 | T3165 | T3209 | T3216 |
 |-------|-------|-------|-------|-------|
