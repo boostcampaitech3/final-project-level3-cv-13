@@ -46,6 +46,12 @@ python3 main.py
     <img src="imgs/gui.png">
 </p>
 
+### gesture
+|이동| 클릭                             | 우클릭                            | None                           |
+|----|--------------------------------|--------------------------------|--------------------------------|
+|<img src='imgs/gesture_1.jpg'>| <img src='imgs/gesture_2.jpg'> | <img src='imgs/gesture_3.jpg'> | <img src='imgs/gesture_4.jpg'> |
+
+*  드래그: 클릭 상태 1초간 유지
 ## 팀 <V\>Λ
 
 | T3049 | T3114 | T3165 | T3209 | T3216 |
