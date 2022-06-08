@@ -17,7 +17,7 @@ from cursor_control import Cursor
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    '--kpts_model_path', type=str, default='models/m3_cv7a_224x224_220605_2.onnx',
+    '--kpts_model_path', type=str, default='models/m3_cv7a_224x224_220605.onnx',
     help='키포인트 모델 경로, None인 경우 mediapipe 사용'
 )
 parser.add_argument(
