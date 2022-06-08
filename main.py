@@ -6,7 +6,7 @@ from typing import Tuple, Optional, List
 import cv2
 import numpy as np
 from PyQt5 import uic
-from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtGui import QImage, QPixmap, QIcon
 from PyQt5.QtCore import QThread, pyqtSignal, QObject
 from PyQt5.QtWidgets import *
 
@@ -201,6 +201,7 @@ class WindowClass(QMainWindow, form_class):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowTitle('virtual mouse')
 
         self.th = CursorThread(self, self.time_per_step, self.cam_img)
         self.save_btn()  # 초기 설정 반영
