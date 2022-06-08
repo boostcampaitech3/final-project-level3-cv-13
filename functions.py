@@ -1,3 +1,7 @@
+"""
+original repository: https://github.com/open-mmlab/mmpose
+"""
+
 import numpy as np
 import cv2
 import warnings
