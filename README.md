@@ -60,10 +60,12 @@ python3 main.py
 * Top-down heatmap-based hand keypoint estimation
 * Backbone: MobileNetV3-Large
 * FreiHAND dataset으로 학습 후 CV7AHAND dataset으로 재학습
+* CV7AHAND: 사용환경에 적합하게 직접 제작한 데이터셋
 
 ### 제스쳐 분류 모델
 
-* Three-layer MLP ((Linear, BN, ReLU), (Linear, BN, ReLU), (Linear, Sigmoid))
+* Three-layer MLP - Sequential(Linear, BN, ReLU, Linear, BN, ReLU, Linear, Sigmoid)
+* Input shape: (BATCH_SIZE, 42), Output shape: (BATCH_SIZE, 4)
 * Validation accuracy 100%
 
 ## 팀 CV7Λ
