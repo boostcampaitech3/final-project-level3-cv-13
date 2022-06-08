@@ -57,8 +57,7 @@ python3 main.py
 
 ### 키포인트 디텍션 모델
 
-* Top-down heatmap-based hand keypoint estimation
-* Backbone: MobileNetV3-Large
+* Top-down heatmap based hand keypoint estimation with MobileNetV3-Large backbone
 * FreiHAND dataset으로 학습 후 CV7AHAND dataset으로 재학습
 * CV7AHAND: 사용환경에 적합하게 직접 제작한 데이터셋
 
@@ -66,7 +65,7 @@ python3 main.py
 
 * Three-layer MLP - Sequential(Linear, BN, ReLU, Linear, BN, ReLU, Linear, Sigmoid)
 * Input shape: (BATCH_SIZE, 42), Output shape: (BATCH_SIZE, 4)
-* Validation accuracy 100%
+* 손동작을 취하면서 직접 제작한 데이터셋으로 학습
 
 ## 팀 CV7Λ
 
