@@ -57,7 +57,9 @@ python3 main.py
 
 ### 키포인트 디텍션 모델
 
-* 
+* Top-down heatmap-based hand keypoint estimation
+* backbone : mobilenet v3 large
+* freihand dataset으로 학습 후 CV7A Hand dataset으로 
 
 ### 제스쳐 분류 모델
 
