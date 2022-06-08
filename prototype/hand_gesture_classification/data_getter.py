@@ -36,7 +36,7 @@ CAM_DELAY = 100
 
 # onnx 테스트
 test_onnx = True
-onnx_path = './simple_model.onnx'
+onnx_path = '../../models/gesture_classification.onnx'
 
 # 데이터 저장 디렉토리 생성
 if not os.path.isdir(DATA_DIR):
@@ -61,7 +61,7 @@ capture.set(cv2.CAP_PROP_FRAME_HEIGHT, cam_h)
 
 ######################################################################
 if test_onnx:  # onnx 로
-    ort_session = ort.InferenceSession("simple_model.onnx")
+    ort_session = ort.InferenceSession("../../models/gesture_classification.onnx")
 
     def preprocessing(kpts):
         """keypoints 전처리 - 손목지점을 원점으로 지정, 키포인트 x, y 좌표를 0~1로 정규화"""
