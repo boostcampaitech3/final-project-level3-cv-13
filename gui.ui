@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>340</width>
-    <height>549</height>
+    <width>332</width>
+    <height>539</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(46, 52, 54);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="cam_img">
@@ -40,7 +43,7 @@
    <widget class="QPushButton" name="save">
     <property name="geometry">
      <rect>
-      <x>13</x>
+      <x>10</x>
       <y>480</y>
       <width>311</width>
       <height>27</height>
@@ -50,6 +53,9 @@
      <font>
       <family>D2Coding</family>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
      <string>save</string>
@@ -70,6 +76,9 @@
       <weight>75</weight>
       <bold>true</bold>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="minimum">
      <double>0.050000000000000</double>
@@ -113,6 +122,9 @@
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(238, 238, 236);</string>
+    </property>
     <property name="text">
      <string>delay</string>
     </property>
@@ -133,6 +145,9 @@
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(238, 238, 236);</string>
+    </property>
     <property name="text">
      <string>time per step</string>
     </property>
@@ -150,6 +165,9 @@
      <font>
       <family>D2Coding</family>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
      <string/>
@@ -198,6 +216,9 @@
        <family>D2Coding</family>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);</string>
+     </property>
      <property name="text">
       <string>Right</string>
      </property>
@@ -218,6 +239,9 @@
       <font>
        <family>D2Coding</family>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);</string>
      </property>
      <property name="text">
       <string>Left</string>
@@ -240,6 +264,9 @@
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(238, 238, 236);</string>
+    </property>
     <property name="text">
      <string>hand</string>
     </property>
@@ -260,6 +287,9 @@
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(238, 238, 236);</string>
+    </property>
     <property name="text">
      <string>control area</string>
     </property>
@@ -279,6 +309,9 @@
       <weight>75</weight>
       <bold>true</bold>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="minimum">
      <double>0.050000000000000</double>
@@ -304,7 +337,7 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">QStatusBar{border :2px solid rgb(186, 189, 182)}</string>
+    <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
   </widget>
  </widget>
