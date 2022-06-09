@@ -1288,3 +1288,5 @@ __pycache__/cursor_control.cpython-38.pyc
 __pycache__/functions.cpython-38.pyc
 __pycache__/hand_gesture.cpython-38.pyc
 __pycache__/kpts_inference.cpython-38.pyc
+prototype/main_v3/__pycache__/functions.cpython-38.pyc
+prototype/main_v3/__pycache__/hand_gesture.cpython-38.pyc
