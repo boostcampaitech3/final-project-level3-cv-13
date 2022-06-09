@@ -57,12 +57,12 @@ class CursorThread(QThread):
         self.use_left_hand = None
 
         self.skeleton_color = {
-            None: (255, 255, 255),
-            0: (88, 209, 48),
-            1: (58, 69, 255),
-            2: (255, 132, 10),
-            3: (242, 90, 191),
-            4: (10, 159, 255),
+            None: (247, 253, 175),
+            0: (248, 184, 179),
+            1: (170, 243, 162),
+            2: (146, 222, 252),
+            3: (174, 197, 241),
+            4: (177, 167, 240),
         }
 
         self.change_pixmap.connect(self.update_img_label)
