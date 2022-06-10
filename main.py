@@ -49,9 +49,9 @@ class CursorThread(QThread):
     CAM_LABEL_RATIO = CAM_W / SHOW_W
     change_pixmap = pyqtSignal(QImage)
 
-    def __init__(self, p: QObject, time_per_step_label: QLabel, img_label: QLabel):
+    def __init__(self, p: QObject, fps_label: QLabel, img_label: QLabel):
         super().__init__(p)
-        self.time_per_step_label = time_per_step_label
+        self.fps_label = fps_label
         self.img_label = img_label
         self.delay = None
         self.use_left_hand = None
@@ -124,8 +124,8 @@ class CursorThread(QThread):
             # 이미지 갱신
             self.update_img(frame)
 
-            self.time_per_step_label.setText(f'{time()-t_1:.06f} s')  # 스텝 당 소요시간 업데이트
             sleep(self.delay)  # 부하 조절
+            self.fps_label.setText(f'{1. / (time()-t_1):.02f}')  # 스텝 당 소요시간 업데이트
 
     def update_img(self, frame: np.ndarray):
         """이미지 라벨 갱신"""
@@ -230,7 +230,7 @@ class WindowClass(QMainWindow, form_class):
         self.setupUi(self)
         self.setWindowTitle('virtual mouse')
 
-        self.th = CursorThread(self, self.time_per_step, self.cam_img)
+        self.th = CursorThread(self, self.fps, self.cam_img)
         self.save_btn()  # 초기 설정 반영
         self.th.start()
 
