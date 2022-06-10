@@ -32,9 +32,9 @@ cd final-project-level3-cv-13
 virtualenv virtual_mouse --python=3.8
 source virtual_mouse/bin/activate
 
-# 의존성 설치 및 플러그인 충돌 우회 (해결 중...)
+# 의존성 설치 및 플러그인 충돌 우회
 pip install -r requirements.txt
-mv virtual_mouse/lib/python3.8/site-packages/cv2/qt/plugins/ virtual_mouse/lib/python3.8/site-packages/cv2/qt/plugins_
+mv virtual_mouse/lib/python3.8/site-packages/cv2/qt/plugins/ virtual_mouse/lib/python3.8/site-packages/cv2/qt/plugins_/
 
 # 실행
 python3 main.py
