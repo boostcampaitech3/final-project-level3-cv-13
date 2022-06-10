@@ -188,7 +188,7 @@ if capture.isOpened():
         # print(fps)
         frame_flipped = cv2.flip(frame, 1)
         cv2.putText(frame_flipped, 'PLACE YOUR HAND INSIDE THE BOX', (RESIZE_WIDTH_HEIGHT[0]-PATCH_X_MAX-5, PATCH_Y_MIN-9), cv2.FONT_HERSHEY_SIMPLEX, 0.413, (255,255,255), 1)
-        cv2.putText(frame_flipped, f'FPS: {fps}', (3, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.413, (255,255,255), 1)
+        cv2.putText(frame_flipped, f'FPS: {fps}', (4, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.413, (255,255,255), 1)
         cv2.imshow("Cursor Control", frame_flipped)  # 이미지 출력
 
     capture.release()
