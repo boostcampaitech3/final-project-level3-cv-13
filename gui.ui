@@ -155,9 +155,9 @@
    <widget class="QLabel" name="time_per_step">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>160</x>
       <y>280</y>
-      <width>181</width>
+      <width>161</width>
       <height>30</height>
      </rect>
     </property>

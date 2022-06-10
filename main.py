@@ -56,6 +56,15 @@ class CursorThread(QThread):
         self.delay = None
         self.use_left_hand = None
 
+        self.skeleton_color = {
+            None: (247, 253, 175),
+            0: (248, 184, 179),
+            1: (170, 243, 162),
+            2: (146, 222, 252),
+            3: (174, 197, 241),
+            4: (177, 167, 240),
+        }
+
         self.change_pixmap.connect(self.update_img_label)
 
         self.__box_center = (200, 320)
@@ -106,7 +115,8 @@ class CursorThread(QThread):
                 if self.use_left_hand:
                     kpts = [x if i % 2 == 1 else 1.-x for i, x in enumerate(kpts)]
                 idx_pos = self.cursor(kpts, hand_pose)
-                self.draw_idx_point(frame, (l, t), idx_pos)
+                # self.draw_idx_point(frame, (l, t), idx_pos)
+                frame = self.draw_skeleton(frame, kpts, (l, t), hand_pose)
 
             # 인퍼런스 영역과 커서 조작 영역 표시
             frame = self.draw_area(frame, (l, t, r, b))
@@ -172,6 +182,23 @@ class CursorThread(QThread):
             frame = cv2.circle(frame, (idx_x, idx_y), 5, (0, 255, 0), -1)
 
         return frame
+
+    def draw_skeleton(self, frame, kpts, patch_lt, gesture: Optional[None]):
+        color = self.skeleton_color[gesture]
+        kpts_px = [int(patch_lt[i % 2] + x * self.__box_size) for i, x in enumerate(kpts)]
+        for i in range(21):
+            frame = cv2.circle(frame, kpts_px[2*i: 2*(i+1)], 5, color, 2)
+
+        keypoints_sequence = (
+        (0, 1), (1, 2), (2, 3), (3, 4), (0, 5), (5, 6), (6, 7), (7, 8), (5, 9), (9, 10), (10, 11), (11, 12), (9, 13),
+        (13, 14), (14, 15), (15, 16), (13, 17), (17, 18), (18, 19), (19, 20), (0, 17))
+        for start, end in keypoints_sequence:
+            cv2.line(frame, kpts_px[2*start: 2*(start+1)], kpts_px[2*end: 2*(end+1)], color, 2)
+
+        cv2.circle(frame, kpts_px[16:18], 10, color, 2)
+
+        return frame
+
 
     @property
     def box_center(self):
