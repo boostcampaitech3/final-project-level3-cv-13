@@ -1,7 +1,7 @@
-# 웹캠을 통한 가상 마우스
+# 웹캠을 이용한 가상 마우스
 
 <p align="center">
-    <img src="imgs/demo.gif">
+    <img src="imgs/demo_final.gif">
 </p>
 
 ## 프로젝트 소개
